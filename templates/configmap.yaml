@@ -5,9 +5,9 @@ metadata:
 #https://gitlab.eurecom.fr/oai/openairinterface5g/-/blob/develop/ci-scripts/conf_files/gNB_SA_DU.conf
 data:
   flexric.conf: |
-[NEAR-RIC]
-NEAR_RIC_IP = 127.0.0.1
-[XAPP]
-DB_PATH = /tmp/
-DB_NAME = xapp_db1
+      [NEAR-RIC]
+      NEAR_RIC_IP = 127.0.0.1
+      [XAPP]
+      DB_PATH = /tmp/
+      DB_NAME = xapp_db1
 
