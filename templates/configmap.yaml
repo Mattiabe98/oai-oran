@@ -6,7 +6,7 @@ metadata:
 data:
   flexric.conf: |
       [NEAR-RIC]
-      NEAR_RIC_IP = 127.0.0.1
+      NEAR_RIC_IP = 0.0.0.0
       [XAPP]
       DB_PATH = /tmp/
       DB_NAME = xapp_db1
