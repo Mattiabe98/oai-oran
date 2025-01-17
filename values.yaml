@@ -46,7 +46,7 @@ securityContext:
      - SYS_NICE
     drop:
      - ALL
-privileged: true
+ privileged: true
 
 start:
   flexric: true
