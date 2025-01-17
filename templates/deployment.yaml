@@ -103,7 +103,7 @@ spec:
         name: configuration
       dnsPolicy: ClusterFirst
       restartPolicy: Always
-      serviceAccountName: {{ .Chart.Name }}
+      serviceAccountName: {{ .Values.serviceAccount.name }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       {{- if .Values.nodeSelector}}
       nodeSelector: 
