@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: oai-flexric
+  labels:
+    {{- include "oai-flexric.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+    - name: e2
+      port: {{ .Values.config.e2Port}}
+      targetPort: {{ .Values.config.e2Port}}
+      protocol: SCTP
+  selector:
+    {{- include "oai-flexric.selectorLabels" . | nindent 4 }}
