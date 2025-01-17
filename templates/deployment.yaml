@@ -41,7 +41,6 @@ spec:
         volumeMounts:
           - mountPath: /usr/local/etc/flexric/flexric.conf
             name: configuration
-          # USRP B210/B200 Mini
         {{- if .Values.resources.define}}
         resources:
           requests:
@@ -98,26 +97,6 @@ spec:
           - infinity
         {{- end}}
       {{- end }}
-      {{- if .Values.includeTrafficContainer }}
-      - name: traffic
-        image: "{{ .Values.trafficimage.repository }}:{{ .Values.trafficimage.version }}"
-        imagePullPolicy: {{ .Values.trafficimage.pullPolicy }}
-        {{- if .Values.resources.define}}
-        resources:
-          requests:
-            memory: {{ .Values.resources.requests.traffic.memory | quote }}
-            cpu: {{ .Values.resources.requests.traffic.cpu | quote }}
-          limits:
-            memory: {{ .Values.resources.limits.traffic.memory | quote }}
-            cpu: {{ .Values.resources.limits.traffic.cpu | quote }}
-        {{- end}}
-        securityContext:
-           capabilities:
-              add:
-               - NET_ADMIN
-               - NET_RAW
-              drop:
-               - ALL
       volumes:
       - configMap:
           name: {{ .Chart.Name }}-configmap
