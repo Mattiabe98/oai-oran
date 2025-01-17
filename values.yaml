@@ -34,9 +34,9 @@ config:
 #  usrp: "rfsim"            # allowed rfsim, b2xx, n3xx, x3xx
 #  useAdditionalOptions: "--rfsim -r 106 --numerology 1 -C 3619200000 --log_config.global_log_options level,nocolor,time"
 
-#podSecurityContext:
-#  runAsUser: 0
-#  runAsGroup: 0
+podSecurityContext:
+  runAsUser: 0
+  runAsGroup: 0
 
 securityContext:
  capabilities:
@@ -46,10 +46,10 @@ securityContext:
      - SYS_NICE
     drop:
      - ALL
-# privileged: true
+privileged: true
 
 start:
-  flexric: start
+  flexric: true
   tcpdump: false  # if false then started in sleep mode else it will start capturing packets, nr ue will have a lot of packets per sec better avoid this or add a filter in the deployment.yaml
 
 includeTcpDumpContainer: false #If true it will add a tcpdump container inside network function pod for debugging
