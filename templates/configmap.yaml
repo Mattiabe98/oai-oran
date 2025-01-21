@@ -7,7 +7,7 @@ data:
   ric.conf: |
       SM_DIR = "/usr/local/lib/flexric/"
       
-      Name = "NearRT-RIC"
+      Name = "NearRT_RIC"
       NearRT_RIC_IP = "0.0.0.0"
       E2_Port = 36421
       E42_Port = 36422
