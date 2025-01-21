@@ -5,6 +5,8 @@ metadata:
 #https://gitlab.eurecom.fr/oai/openairinterface5g/-/blob/develop/ci-scripts/conf_files/gNB_SA_DU.conf
 data:
   ric.conf: |
+      SM_DIR = "/usr/local/lib/flexric/"
+      
       Name = "NearRT-RIC"
       NEAR_RIC_IP = "0.0.0.0"
       E2_Port = 36421
