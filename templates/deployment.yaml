@@ -57,7 +57,7 @@ spec:
         {{- if .Values.start.flexric}}
         command: [ "/bin/bash", "-c" ]
         args:
-          - exec stdbuf -o0 /usr/local/bin/nearRT-RIC;
+          - exec stdbuf -o0 /flexric/build/examples/ric/nearRT-RIC;
         {{- else}}
         command:
           - /bin/sleep
