@@ -4,7 +4,7 @@ metadata:
   name: {{ .Chart.Name }}-configmap
 #https://gitlab.eurecom.fr/oai/openairinterface5g/-/blob/develop/ci-scripts/conf_files/gNB_SA_DU.conf
 data:
-  ric.conf: |
+  flexric.conf: |
       SM_DIR = "/usr/local/lib/flexric/"
       
       Name = "NearRT_RIC"
