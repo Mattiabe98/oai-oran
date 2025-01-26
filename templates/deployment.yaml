@@ -73,7 +73,7 @@ spec:
         command: [ "/bin/bash", "-c" ]
         args:
           - sleep 10;
-            exec stdbuf -o0 /flexric/build/examples/emulator/agent;
+            exec stdbuf -o0 /flexric/build/examples/emulator/agent/emu_agent_gnb;
         {{- else}}
         command:
           - /bin/sleep
