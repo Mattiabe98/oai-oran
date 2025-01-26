@@ -106,6 +106,7 @@ spec:
             apt update && apt install nano -y;
             pip3 install tabulate;
             stdbuf -o0 python3 /xapp/xapp.py;
+            tail -f /dev/null;
         env:
           - name: TZ
             value: {{ .Values.config.timeZone }}
