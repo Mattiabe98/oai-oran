@@ -8,6 +8,11 @@ import pdb
 ####################
 
 #  MACCallback class is defined and derived from C++ class mac_cb
+####################
+#### MAC INDICATION CALLBACK
+####################
+
+#  MACCallback class is defined and derived from C++ class mac_cb
 class MACCallback(ric.mac_cb):
     # Define Python class 'constructor'
     def __init__(self):
@@ -25,6 +30,8 @@ class MACCallback(ric.mac_cb):
                 print('UE ID: ' + str(id))
                 print('DL BER: ' + str(ue.dl_bler))
                 print('UL BER: ' + str(ue.ul_bler))
+                print('Throughput: ' + str(ue.throughput))  # Example metric
+                print('CQI: ' + str(ue.cqi))  # Example metric
 
 ####################
 #### RLC INDICATION CALLBACK
@@ -43,7 +50,10 @@ class RLCCallback(ric.rlc_cb):
             t_rlc = ind.tstamp / 1.0
             t_diff = t_now - t_rlc
             print('RLC Indication tstamp = ' + str(ind.tstamp) + ' latency = ' + str(t_diff) + ' μs')
-            # print('RLC rnti = '+ str(ind.rb_stats[0].rnti))
+            for rb in ind.rb_stats:
+                print('RLC RNTI: ' + str(rb.rnti))
+                print('RLC Throughput: ' + str(rb.throughput))  # Example metric
+                print('RLC Retransmissions: ' + str(rb.retx_count))  # Example metric
 
 ####################
 #### PDCP INDICATION CALLBACK
@@ -62,8 +72,10 @@ class PDCPCallback(ric.pdcp_cb):
             t_pdcp = ind.tstamp / 1.0
             t_diff = t_now - t_pdcp
             print('PDCP Indication tstamp = ' + str(ind.tstamp) + ' latency = ' + str(t_diff) + ' μs')
-
-            # print('PDCP rnti = '+ str(ind.rb_stats[0].rnti))
+            for rb in ind.rb_stats:
+                print('PDCP RNTI: ' + str(rb.rnti))
+                print('PDCP Packet Loss Rate: ' + str(rb.plr))  # Example metric
+                print('PDCP Latency: ' + str(rb.latency))  # Example metric
 
 ####################
 #### GTP INDICATION CALLBACK
@@ -81,6 +93,11 @@ class GTPCallback(ric.gtp_cb):
             t_gtp = ind.tstamp / 1.0
             t_diff = t_now - t_gtp
             print('GTP Indication tstamp = ' + str(ind.tstamp) + ' diff = ' + str(t_diff) + ' μs')
+            for stat in ind.gtp_stats:
+                print('GTP Tunnel ID: ' + str(stat.tunnel_id))
+                print('GTP Throughput: ' + str(stat.throughput))  # Example metric
+                print('GTP Packet Loss: ' + str(stat.packet_loss))  # Example metric
+
 
 
 ####################
