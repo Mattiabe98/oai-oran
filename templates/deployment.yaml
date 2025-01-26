@@ -23,16 +23,6 @@ spec:
       imagePullSecrets:
         {{ toYaml .Values.imagePullSecrets | indent 8 }}
     {{- end }}
-    {{- if .Values.global }}{{ if .Values.global.waitForRadio }}
-      initContainers:
-        - name: init
-          image: docker.io/oaisoftwarealliance/oai-tcpdump-init:alpine-3.20
-          imagePullPolicy: IfNotPresent
-          command:
-            - /bin/sh
-            - -c
-            - until ping -c 1  {{ .Values.config.duServer }}; do echo waiting for oai-du to start; sleep 1; done
-    {{- end }}{{ end }}
       containers:
       - name: flexric
         image: "{{ .Values.nfimage.repository }}:{{ .Values.nfimage.version }}"
@@ -66,6 +56,32 @@ spec:
         env:
           - name: TZ
             value: {{ .Values.config.timeZone }}
+      - name: e2emulator
+        image: "{{ .Values.nfimage.repository }}:{{ .Values.nfimage.version }}"
+        securityContext:
+          {{- toYaml .Values.securityContext | nindent 12 }}
+        {{- if .Values.resources.define}}
+        resources:
+          requests:
+            memory: {{ .Values.resources.requests.nf.memory | quote }}
+            cpu: {{ .Values.resources.requests.nf.cpu | quote }}
+          limits:
+            memory: {{ .Values.resources.limits.nf.memory | quote }}
+            cpu: {{ .Values.resources.limits.nf.cpu | quote }}
+        {{- end}}
+        {{- if .Values.start.e2emulator}}
+        command: [ "/bin/bash", "-c" ]
+        args:
+          - sleep 10;
+            exec stdbuf -o0 /flexric/build/examples/emulator/agent;
+        {{- else}}
+        command:
+          - /bin/sleep
+          - infinity
+        {{- end}}
+        env:
+          - name: TZ
+            value: {{ .Values.config.timeZone }}            
       {{- if .Values.includeTcpDumpContainer }}
       - name: tcpdump
         image: "{{ .Values.tcpdumpimage.repository }}:{{ .Values.tcpdumpimage.version }}"
