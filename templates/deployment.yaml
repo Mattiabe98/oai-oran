@@ -81,7 +81,29 @@ spec:
         {{- end}}
         env:
           - name: TZ
-            value: {{ .Values.config.timeZone }}            
+            value: {{ .Values.config.timeZone }}
+      - name: xapp
+        image: "{{ .Values.nfimage.repository }}:{{ .Values.nfimage.version }}"
+        securityContext:
+          {{- toYaml .Values.securityContext | nindent 12 }}
+        volumeMounts:
+          - mountPath: /xapp/
+            name: script-volume
+        {{- if .Values.resources.define}}
+        resources:
+          requests:
+            memory: {{ .Values.resources.requests.nf.memory | quote }}
+            cpu: {{ .Values.resources.requests.nf.cpu | quote }}
+          limits:
+            memory: {{ .Values.resources.limits.nf.memory | quote }}
+            cpu: {{ .Values.resources.limits.nf.cpu | quote }}
+        {{- end}}
+        command:
+          - /bin/sleep
+          - infinity
+        env:
+          - name: TZ
+            value: {{ .Values.config.timeZone }}
       {{- if .Values.includeTcpDumpContainer }}
       - name: tcpdump
         image: "{{ .Values.tcpdumpimage.repository }}:{{ .Values.tcpdumpimage.version }}"
@@ -117,6 +139,9 @@ spec:
       - configMap:
           name: {{ .Chart.Name }}-configmap
         name: configuration
+      - configMap:
+          name: {{ .Chart.Name }}-script
+        name: script-volume
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       serviceAccountName: {{ .Values.serviceAccount.name }}
