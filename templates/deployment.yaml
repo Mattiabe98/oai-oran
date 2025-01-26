@@ -103,8 +103,6 @@ spec:
           - sleep 10;
             cp /xapp/files/* /xapp/;
             cp /flexric/build/examples/xApp/python3/* /xapp/;
-            apt update && apt install nano -y;
-            pip3 install tabulate;
             stdbuf -o0 python3 /xapp/xapp.py;
             tail -f /dev/null;
         env:
