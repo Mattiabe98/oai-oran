@@ -16,12 +16,15 @@ class MACCallback(ric.mac_cb):
     # Override C++ method: virtual void handle(swig_mac_ind_msg_t a) = 0;
     def handle(self, ind):
         # Print swig_mac_ind_msg_t
-        if len(ind.ue_stats) > 0:
-            t_now = time.time_ns() / 1000.0
-            t_mac = ind.tstamp / 1.0
-            t_diff = t_now - t_mac
-            print('MAC Indication tstamp = ' + str(t_mac) + ' latency = ' + str(t_diff) + ' μs')
-            # print('MAC rnti = ' + str(ind.ue_stats[0].rnti))
+        for id, ue in enumerate(ind.ue_stats):
+            if len(ind.ue_stats) > 0:
+                t_now = time.time_ns() / 1000.0
+                t_mac = ind.tstamp / 1.0
+                t_diff = t_now - t_mac
+                print('MAC Indication tstamp = ' + str(t_mac) + ' latency = ' + str(t_diff) + ' μs')
+                print('UE ID: ' + str(id))
+                print('DL BER: ' + str(ue.dl_bler))
+                print('UL BER: ' + str(ue.ul_bler))
 
 ####################
 #### RLC INDICATION CALLBACK
