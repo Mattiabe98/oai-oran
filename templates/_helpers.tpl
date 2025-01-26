@@ -2,7 +2,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "oai-flexric.name" -}}
+{{- define "oai-oran.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
@@ -11,7 +11,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "oai-flexric.fullname" -}}
+{{- define "oai-oran.fullname" -}}
 {{- if .Values.fullnameOverride -}}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
@@ -27,16 +27,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "oai-flexric.chart" -}}
+{{- define "oai-oran.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
 Common labels
 */}}
-{{- define "oai-flexric.labels" -}}
-helm.sh/chart: {{ include "oai-flexric.chart" . }}
-{{ include "oai-flexric.selectorLabels" . }}
+{{- define "oai-oran.labels" -}}
+helm.sh/chart: {{ include "oai-oran.chart" . }}
+{{ include "oai-oran.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -46,17 +46,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "oai-flexric.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "oai-flexric.name" . }}
+{{- define "oai-oran.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "oai-oran.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "oai-flexric.serviceAccountName" -}}
+{{- define "oai-oran.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create -}}
-    {{ default (include "oai-flexric.fullname" .) .Values.serviceAccount.name }}
+    {{ default (include "oai-oran.fullname" .) .Values.serviceAccount.name }}
 {{- else -}}
     {{ default "default" .Values.serviceAccount.name }}
 {{- end -}}
