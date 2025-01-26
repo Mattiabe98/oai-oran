@@ -3,19 +3,19 @@ kind: Deployment
 metadata:
   name: {{ .Chart.Name }}
   labels:
-    {{- include "oai-flexric.labels" . | nindent 4 }}
+    {{- include "oai-oran.labels" . | nindent 4 }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      {{- include "oai-flexric.selectorLabels" . | nindent 6 }}
+      {{- include "oai-oran.selectorLabels" . | nindent 6 }}
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        {{- include "oai-flexric.selectorLabels" . | nindent 8 }}
-        app: oai-flexric
+        {{- include "oai-oran.selectorLabels" . | nindent 8 }}
+        app: oai-oran
     spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
