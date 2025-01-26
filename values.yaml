@@ -16,7 +16,7 @@ serviceAccount:
   annotations: {}
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: "oai-flexric-sa"
+  name: "oai-oran-sa"
 
 # good to use when pulling images from docker-hub mention
 imagePullSecrets:
@@ -51,6 +51,7 @@ securityContext:
 
 start:
   flexric: true
+  e2emulator: true
   tcpdump: false  # if false then started in sleep mode else it will start capturing packets, nr ue will have a lot of packets per sec better avoid this or add a filter in the deployment.yaml
 
 includeTcpDumpContainer: false #If true it will add a tcpdump container inside network function pod for debugging
