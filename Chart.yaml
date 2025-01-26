@@ -20,8 +20,8 @@
 ################################################################################
 
 apiVersion: v2
-name: oai-flexric
-description: A Helm chart for FlexRIC
+name: oai-oran
+description: A Helm chart for ORAN
 
 # A chart can be either an 'application' or a 'library' chart.
 #
