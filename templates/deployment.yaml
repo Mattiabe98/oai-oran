@@ -72,7 +72,7 @@ spec:
         {{- if .Values.start.e2emulator}}
         command: [ "/bin/bash", "-c" ]
         args:
-          - sleep 10;
+          - sleep 5;
             exec stdbuf -o0 /flexric/build/examples/emulator/agent/emu_agent_gnb;
         {{- else}}
         command:
@@ -87,7 +87,7 @@ spec:
         securityContext:
           {{- toYaml .Values.securityContext | nindent 12 }}
         volumeMounts:
-          - mountPath: /xapp/
+          - mountPath: /xapp/files/
             name: script-volume
         {{- if .Values.resources.define}}
         resources:
@@ -98,9 +98,14 @@ spec:
             memory: {{ .Values.resources.limits.nf.memory | quote }}
             cpu: {{ .Values.resources.limits.nf.cpu | quote }}
         {{- end}}
-        command:
-          - /bin/sleep
-          - infinity
+        command: [ "/bin/bash", "-c" ]
+        args:
+          - sleep 10;
+            cp /xapp/files/* /xapp/;
+            cp /flexric/build/examples/xApp/python3/* /xapp/;
+            apt update && apt install nano -y;
+            pip3 install tabulate;
+            stdbuf -o0 python3 /xapp/xapp.py;
         env:
           - name: TZ
             value: {{ .Values.config.timeZone }}
