@@ -26,7 +26,7 @@ class MACCallback(ric.mac_cb):
                 print('UE ID: ' + str(id))
                 print('DL BER: ' + str(ue.dl_bler))
                 print('UL BER: ' + str(ue.ul_bler))
-                print('Throughput: ' + str(ue.bsr))  # Example metric
+                print('BSR: ' + str(ue.bsr))  # Example metric
                 print('WB CQI: ' + str(ue.wb_cqi))  # Example metric
                 print('DL SCHED RB: ' + str(ue.dl_sched_rb))
                 print('UL SCHED RB: ' + str(ue.ul_sched_rb))
@@ -55,10 +55,11 @@ class RLCCallback(ric.rlc_cb):
             t_rlc = ind.tstamp / 1.0
             t_diff = t_now - t_rlc
             print('RLC Indication tstamp = ' + str(ind.tstamp) + ' latency = ' + str(t_diff) + ' μs')
-            for rb in ind.rb_stats:
-                print('RLC RNTI: ' + str(rb.rnti))
-                print('RLC Throughput: ' + str(rb.throughput))  # Example metric
-                print('RLC Retransmissions: ' + str(rb.retx_count))  # Example metric
+            for id, rb in enumerate(ind.rb_stats):
+                print('UE ID: ' + str(id))
+                #print('RLC RNTI: ' + str(rb.rnti))
+                print('RLC PDU TX retransmitted packets: ' + str(rb.txpdu_retx_pkts))  # Example metric
+                print('RLC PDU TX dropped packets: ' + str(rb.txpdu_dd_pkts))  # Example metric
 
 ####################
 #### PDCP INDICATION CALLBACK
@@ -77,10 +78,11 @@ class PDCPCallback(ric.pdcp_cb):
             t_pdcp = ind.tstamp / 1.0
             t_diff = t_now - t_pdcp
             print('PDCP Indication tstamp = ' + str(ind.tstamp) + ' latency = ' + str(t_diff) + ' μs')
-            for rb in ind.rb_stats:
-                print('PDCP RNTI: ' + str(rb.rnti))
-                print('PDCP Packet Loss Rate: ' + str(rb.plr))  # Example metric
-                print('PDCP Latency: ' + str(rb.latency))  # Example metric
+            for id, rb in enumerate(ind.rb_stats):
+                print('UE ID: ' + str(id))
+                #print('PDCP RNTI: ' + str(rb.rnti))
+                print('PDCP total PDU TX in bytes: ' + str(rb.txpdu_bytes))  # Example metric
+                print('PDCP total PDU RX in bytes: ' + str(rb.rxpdu_bytes))  # Example metric
 
 ####################
 #### GTP INDICATION CALLBACK
@@ -98,10 +100,11 @@ class GTPCallback(ric.gtp_cb):
             t_gtp = ind.tstamp / 1.0
             t_diff = t_now - t_gtp
             print('GTP Indication tstamp = ' + str(ind.tstamp) + ' diff = ' + str(t_diff) + ' μs')
-            for stat in ind.gtp_stats:
+            for id, stat in enumerate(ind.gtp_stats):
+                print('UE ID: ' + str(id))
                 print('GTP Tunnel ID: ' + str(stat.tunnel_id))
-                print('GTP Throughput: ' + str(stat.throughput))  # Example metric
-                print('GTP Packet Loss: ' + str(stat.packet_loss))  # Example metric
+                print('GTP QoS flow indicator: ' + str(stat.qfi))  # Example metric
+                print('GTP gNB tunnel identifier: ' + str(stat.teidgnb))  # Example metric
 
 
 
@@ -124,7 +127,7 @@ for i in range(0, len(conn)):
 mac_hndlr = []
 for i in range(0, len(conn)):
     mac_cb = MACCallback()
-    hndlr = ric.report_mac_sm(conn[i].id, ric.Interval_ms_1, mac_cb)
+    hndlr = ric.report_mac_sm(conn[i].id, ric.Interval_ms_100, mac_cb)
     mac_hndlr.append(hndlr)     
     time.sleep(1)
 
@@ -135,7 +138,7 @@ for i in range(0, len(conn)):
 rlc_hndlr = []
 for i in range(0, len(conn)):
     rlc_cb = RLCCallback()
-    hndlr = ric.report_rlc_sm(conn[i].id, ric.Interval_ms_1, rlc_cb)
+    hndlr = ric.report_rlc_sm(conn[i].id, ric.Interval_ms_100, rlc_cb)
     rlc_hndlr.append(hndlr) 
     time.sleep(1)
 
@@ -146,7 +149,7 @@ for i in range(0, len(conn)):
 pdcp_hndlr = []
 for i in range(0, len(conn)):
     pdcp_cb = PDCPCallback()
-    hndlr = ric.report_pdcp_sm(conn[i].id, ric.Interval_ms_1, pdcp_cb)
+    hndlr = ric.report_pdcp_sm(conn[i].id, ric.Interval_ms_100, pdcp_cb)
     pdcp_hndlr.append(hndlr) 
     time.sleep(1)
 
@@ -157,7 +160,7 @@ for i in range(0, len(conn)):
 gtp_hndlr = []
 for i in range(0, len(conn)):
     gtp_cb = GTPCallback()
-    hndlr = ric.report_gtp_sm(conn[i].id, ric.Interval_ms_1, gtp_cb)
+    hndlr = ric.report_gtp_sm(conn[i].id, ric.Interval_ms_100, gtp_cb)
     gtp_hndlr.append(hndlr)
     time.sleep(1)
 
