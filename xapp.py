@@ -103,7 +103,7 @@ class GTPCallback(ric.gtp_cb):
             for id, stat in enumerate(ind.gtp_stats):
                 print('UE ID: ' + str(id))
                 print('GTP Tunnel ID: ' + str(stat.tunnel_id))
-                print('GTP QoS flow indicator: ' + str(stat.qfi))  # Example metric
+                #print('GTP QoS flow indicator: ' + str(stat.qfi))  # Example metric
                 #print('GTP gNB tunnel identifier: ' + str(stat.teidgnb))  # Example metric
 
 
