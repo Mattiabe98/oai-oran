@@ -3,11 +3,7 @@ import time
 import os
 import pdb
 
-####################
-#### MAC INDICATION CALLBACK
-####################
 
-#  MACCallback class is defined and derived from C++ class mac_cb
 ####################
 #### MAC INDICATION CALLBACK
 ####################
@@ -21,8 +17,8 @@ class MACCallback(ric.mac_cb):
     # Override C++ method: virtual void handle(swig_mac_ind_msg_t a) = 0;
     def handle(self, ind):
         # Print swig_mac_ind_msg_t
-        for id, ue in enumerate(ind.ue_stats):
-            if len(ind.ue_stats) > 0:
+        if len(ind.ue_stats) > 0:
+            for id, ue in enumerate(ind.ue_stats):
                 t_now = time.time_ns() / 1000.0
                 t_mac = ind.tstamp / 1.0
                 t_diff = t_now - t_mac
