@@ -26,9 +26,18 @@ class MACCallback(ric.mac_cb):
                 print('UE ID: ' + str(id))
                 print('DL BER: ' + str(ue.dl_bler))
                 print('UL BER: ' + str(ue.ul_bler))
-                print('Throughput: ' + str(ue.throughput))  # Example metric
-                print('CQI: ' + str(ue.cqi))  # Example metric
-
+                print('Throughput: ' + str(ue.bsr))  # Example metric
+                print('WB CQI: ' + str(ue.wb_cqi))  # Example metric
+                print('DL SCHED RB: ' + str(ue.dl_sched_rb))
+                print('UL SCHED RB: ' + str(ue.ul_sched_rb))
+                print('PUSCH SNR: ' + str(ue.pusch_snr))
+                print('PUCCH SNR: ' + str(ue.pucch_snr))
+                print('DL AGGR PRB: ' + str(ue.dl_aggr_prb))
+                print('UL AGGR PRB: ' + str(ue.ul_aggr_prb))
+                print('DL MCS1: ' + str(ue.dl_mcs1))
+                print('UL MCS2: ' + str(ue.ul_mcs2))
+                print('---------------------------------------')
+                
 ####################
 #### RLC INDICATION CALLBACK
 ####################
