@@ -124,7 +124,7 @@ spec:
             memory: {{ .Values.resources.limits.nf.memory | quote }}
             cpu: {{ .Values.resources.limits.nf.cpu | quote }}
         {{- end}}
-        {{- if .Values.start.e2emulator}}
+        {{- if .Values.start.prometheus}}
         command: [ "/bin/sh", "-c" ]
         args:
           - exec /bin/prometheus
