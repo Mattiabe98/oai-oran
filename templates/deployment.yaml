@@ -108,6 +108,34 @@ spec:
         env:
           - name: TZ
             value: {{ .Values.config.timeZone }}
+      - name: prometheus
+        image: "{{ .Values.prometheusimage.repository }}:{{ .Values.prometheusimage.version }}"
+        securityContext:
+          {{- toYaml .Values.securityContext | nindent 12 }}
+        volumeMounts:
+          - mountPath: /etc/prometheus/
+            name: prometheus
+        {{- if .Values.resources.define}}
+        resources:
+          requests:
+            memory: {{ .Values.resources.requests.nf.memory | quote }}
+            cpu: {{ .Values.resources.requests.nf.cpu | quote }}
+          limits:
+            memory: {{ .Values.resources.limits.nf.memory | quote }}
+            cpu: {{ .Values.resources.limits.nf.cpu | quote }}
+        {{- end}}
+        {{- if .Values.start.e2emulator}}
+        command: [ "/bin/bash", "-c" ]
+        args:
+          - exec /bin/prometheus
+        {{- else}}
+        command:
+          - /bin/sleep
+          - infinity
+        {{- end}}
+        env:
+          - name: TZ
+            value: {{ .Values.config.timeZone }}
       {{- if .Values.includeTcpDumpContainer }}
       - name: tcpdump
         image: "{{ .Values.tcpdumpimage.repository }}:{{ .Values.tcpdumpimage.version }}"
