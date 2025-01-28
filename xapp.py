@@ -258,21 +258,22 @@ while True:
  #host_ip = get_host_ip()
   # Expose metrics on port 8000
  print("Queried data, sleeping..")
- time.sleep(10)
+ time.sleep(1)
 
 ### End
-for i in range(0, len(mac_hndlr)):
- ric.rm_report_mac_sm(mac_hndlr[i])
+ for i in range(0, len(mac_hndlr)):
+  ric.rm_report_mac_sm(mac_hndlr[i])
+ 
+ for i in range(0, len(rlc_hndlr)):
+  ric.rm_report_rlc_sm(rlc_hndlr[i])
+ 
+ for i in range(0, len(pdcp_hndlr)):
+  ric.rm_report_pdcp_sm(pdcp_hndlr[i])
+ 
+ for i in range(0, len(gtp_hndlr)):
+  ric.rm_report_gtp_sm(gtp_hndlr[i])
 
-for i in range(0, len(rlc_hndlr)):
- ric.rm_report_rlc_sm(rlc_hndlr[i])
-
-for i in range(0, len(pdcp_hndlr)):
- ric.rm_report_pdcp_sm(pdcp_hndlr[i])
-
-for i in range(0, len(gtp_hndlr)):
- ric.rm_report_gtp_sm(gtp_hndlr[i])
-
+ time.sleep(10)
 
 
 # Avoid deadlock. ToDo revise architecture 
