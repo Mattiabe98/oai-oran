@@ -113,7 +113,7 @@ spec:
         securityContext:
           {{- toYaml .Values.securityContext | nindent 12 }}
         volumeMounts:
-          - mountPath: /prometheus/
+          - mountPath: /tmp/prometheus
             name: prometheus
         {{- if .Values.resources.define}}
         resources:
@@ -127,7 +127,9 @@ spec:
         {{- if .Values.start.prometheus}}
         command: [ "/bin/sh", "-c" ]
         args:
-          - exec /bin/prometheus
+          - mkdir /prometheus/ 
+            cp /tmp/prometheus/prometheus.yml /prometheus/prometheus.yml 
+            exec /bin/prometheus
         {{- else}}
         command:
           - /bin/sleep
