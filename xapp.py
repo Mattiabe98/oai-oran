@@ -27,7 +27,10 @@ MAC_PUCCH_SNR = Gauge('ric_mac_pucch_snr', 'MAC PUCCH SNR', ['ue_id'])
 MAC_DL_AGGR_PRB = Gauge('ric_mac_dl_aggr_prb', 'MAC DL Aggregated PRBs', ['ue_id'])
 MAC_UL_AGGR_PRB = Gauge('ric_mac_ul_aggr_prb', 'MAC UL Aggregated PRBs', ['ue_id'])
 MAC_DL_MCS1 = Gauge('ric_mac_dl_mcs1', 'MAC DL MCS1', ['ue_id'])
+MAC_DL_MCS2 = Gauge('ric_mac_dl_mcs2', 'MAC DL MCS2', ['ue_id'])
+MAC_UL_MCS1 = Gauge('ric_mac_ul_mcs1', 'MAC UL MCS1', ['ue_id'])
 MAC_UL_MCS2 = Gauge('ric_mac_ul_mcs2', 'MAC UL MCS2', ['ue_id'])
+
 
 # Create Gauges for RLC metrics
 RLC_TX_RETX_PKTS = Gauge('ric_rlc_tx_retx_pkts', 'RLC PDU TX Retransmitted Packets', ['ue_id'])
@@ -74,8 +77,10 @@ class MACCallback(ric.mac_cb):
              MAC_DL_AGGR_PRB.labels(ue_id=id).set(ue.dl_aggr_prb)
              MAC_UL_AGGR_PRB.labels(ue_id=id).set(ue.ul_aggr_prb)
              MAC_DL_MCS1.labels(ue_id=id).set(ue.dl_mcs1)
+             MAC_UL_MCS1.labels(ue_id=id).set(ue.ul_mcs1)
+             MAC_DL_MCS2.labels(ue_id=id).set(ue.dl_mcs2)
              MAC_UL_MCS2.labels(ue_id=id).set(ue.ul_mcs2)
-
+          
              print('MAC Indication tstamp = ' + str(t_mac) + ' latency = ' + str(t_diff) + ' μs')
              print('UE ID: ' + str(id))
              print('DL BER: ' + str(ue.dl_bler))
