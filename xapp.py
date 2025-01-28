@@ -253,7 +253,7 @@ for i in range(0, len(conn)):
 
 # Start Prometheus HTTP server
 #host_ip = get_host_ip()
-start_http_server(8000, host=get_host_ip()) # Expose metrics on port 8000
+start_http_server(8000) # Expose metrics on port 8000
 
 time.sleep(10)
 
