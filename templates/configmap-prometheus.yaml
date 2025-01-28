@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: {{ .Chart.Name }}-prometheus
 data:
-  prometheus.conf: |
+  prometheus.yml: |
       # my global config
       global:
         scrape_interval: 15s
