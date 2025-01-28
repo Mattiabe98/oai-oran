@@ -126,6 +126,10 @@ spec:
             memory: {{ .Values.resources.limits.nf.memory | quote }}
             cpu: {{ .Values.resources.limits.nf.cpu | quote }}
         {{- end}}
+        ports:
+        - containerPort: 9090
+          name: prometheus
+          protocol: TCP
         {{- if .Values.start.prometheus}}
         command: [ "/bin/sh", "-c" ]
         args:
