@@ -12,5 +12,9 @@ spec:
       port: {{ .Values.config.e2Port}}
       targetPort: {{ .Values.config.e2Port}}
       protocol: SCTP
+    - name: prometheus
+      port: 9090
+      targetPort: 9090
+      protocol: TCP  
   selector:
     {{- include "oai-oran.selectorLabels" . | nindent 4 }}
