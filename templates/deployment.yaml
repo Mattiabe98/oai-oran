@@ -113,7 +113,7 @@ spec:
         securityContext:
           {{- toYaml .Values.securityContext | nindent 12 }}
         volumeMounts:
-          - mountPath: /etc/prometheus/
+          - mountPath: /prometheus/
             name: prometheus
         {{- if .Values.resources.define}}
         resources:
