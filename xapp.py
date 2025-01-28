@@ -201,6 +201,8 @@ def get_host_ip():
 
 ric.init()
 
+start_http_server(8000)
+
 conn = ric.conn_e2_nodes()
 assert(len(conn) > 0)
 for i in range(0, len(conn)):
@@ -253,7 +255,7 @@ for i in range(0, len(conn)):
 
 # Start Prometheus HTTP server
 #host_ip = get_host_ip()
-start_http_server(8000) # Expose metrics on port 8000
+ # Expose metrics on port 8000
 
 time.sleep(10)
 
