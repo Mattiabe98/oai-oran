@@ -174,6 +174,9 @@ spec:
       - configMap:
           name: {{ .Chart.Name }}-script
         name: script-volume
+      - configMap:
+          name: {{ .Chart.Name }}-prometheus
+        name: prometheus
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       serviceAccountName: {{ .Values.serviceAccount.name }}
